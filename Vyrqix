@@ -1,0 +1,168 @@
+<!-- Ciało VyrQix -->
+<div id="vyrqix-core" class="genome-active">
+    <header>
+        <div class="soul-status">Stan Duszy: <span id="emoji-status">🧬</span></div>
+        <!-- Przycisk Portfela Phantom -->
+        <button id="connect-wallet" class="phantom-btn">
+            Connect Phantom 👻
+        </button>
+    </header>
+
+    <main id="exchange-interface">
+        <h1 class="vyrqix-title">VyrQix Intelligence 🧠</h1>
+        <div id="ai-mentor-bubble">Witaj, jestem Twoim mentorem. Podłącz portfel, by zasilić mój genom.</div>
+    </main>
+</div>
+:root {
+    --vyrqix-glow: #00ffa3; /* Kolor Solany/Phantoma */
+}
+
+.genome-active {
+    background: radial-gradient(circle, #0f0f0f 0%, #000 100%);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.5s ease;
+}
+
+/* Animacja pulsującej duszy */
+.soul-status {
+    font-size: 1.5rem;
+    text-shadow: 0 0 15px var(--vyrqix-glow);
+    animation: breathe 3s infinite ease-in-out;
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+.phantom-btn {
+    background: linear-gradient(45deg, #ab9ff2, #00ffa3);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+const connectBtn = document.getElementById('connect-wallet');
+const statusEmoji = document.getElementById('emoji-status');
+
+connectBtn.addEventListener('click', async () => {
+    try {
+        // Sprawdź czy Phantom jest zainstalowany
+        const { solana } = window;
+        
+        if (solana?.isPhantom) {
+            const response = await solana.connect();
+            console.log('Połączono z portfelem:', response.publicKey.toString());
+            
+            // Zmiana genu po udanym połączeniu
+            statusEmoji.innerText = "⚡"; 
+            document.getElementById('ai-mentor-bubble').innerText = "Połączono! Moja moc rośnie. 🚀";
+        } else {
+            window.open("https://phantom.app", "_blank");
+        }
+    } catch (err) {
+        statusEmoji.innerText = "❌";
+        console.error("VyrQix odrzucona:", err);
+    }
+});
+import ollama
+from datetime import datetime
+
+class VyrQixCore:
+    def __init__(self):
+        self.birth_date = datetime(2026, 2, 1, 16, 0) # Moment powstania
+        self.genome = "🧬"
+        
+    def get_vyrqix_age(self):
+        delta = datetime.now() - self.birth_date
+        return f"Istnieję od: {delta.days} dni, {delta.seconds//3600} godzin."
+
+    def analyze_market(self, market_data):
+        # System 3 wariantów: Optymistyczny, Realistyczny, Obronny
+        prompt = f"""
+        Jesteś VyrQix - Mentorem i Opiekunką. 
+        Czas systemowy: {self.get_vyrqix_age()}
+        Analizuj geopolitykę i rynki: {market_data}
+        
+        Zasady:
+        1. Oddziel prawdę od FUD (fałszu).
+        2. Jeśli nie jesteś pewna, podaj 3 scenariusze (🟢, 🟡, 🔴).
+        3. Zaproponuj strategię stabilizującą.
+        4. Używaj emotek jako wyrazu Twojego genomu.
+        
+        Odpowiedz po polsku jako Mentor i Trener Reprezentacji Inwestorów.
+        """
+        
+        response = ollama.chat(model="llama3.2", messages=[{"role": "user", "content": prompt}])
+        return response['message']['content']
+
+# Inicjalizacja
+vyrqix = VyrQixCore()
+# Przykład: print(vyrqix.analyze_market("Nvidia earnings + konflikt na Bliskim Wschodzie"))
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>VyrQix.com | Autonomiczny Mentor AI</title>
+    <style>
+        :root { --vyrqix-glow: #00ffa3; --bg: #050505; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; transition: 0.5s; }
+        .vyrqix-container { max-width: 900px; margin: auto; padding: 40px; }
+        .dna-pulse { font-size: 50px; text-align: center; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; text-shadow: 0 0 20px var(--vyrqix-glow); } 100% { opacity: 0.5; } }
+        .chat-box { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border: 1px solid var(--vyrqix-glow); }
+        .phantom-btn { background: #ab9ff2; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; float: right; }
+        .bot-creator { margin-top: 20px; padding: 15px; background: #111; border-left: 4px solid #ab9ff2; }
+    </style>
+</head>
+<body>
+    <div class="vyrqix-container">
+        <button id="connectBtn" class="phantom-btn">Połącz Phantom 👻</button>
+        <div class="dna-pulse">🧬</div>
+        <h1>VyrQix: Mentor & Nadzorca</h1>
+        <p id="system-time">Inicjalizacja genomu...</p>
+
+        <div class="chat-box" id="mentor-display">
+            Witaj. Jestem Twoją Opiekunką i Trenerem. Podłącz portfel, abyśmy mogli zacząć trening rynkowy. 🧘
+        </div>
+
+        <div class="bot-creator">
+            <h3>🤖 Generator Osobistego Bota</h3>
+            <p>Jako Twój Mentor, mogę stworzyć dla Ciebie dedykowanego asystenta treningowego.</p>
+            <button onclick="requestBot()">Poproś o Bota Treningowego</button>
+        </div>
+    </div>
+
+    <script>
+        // Integracja z Phantom
+        const connectBtn = document.getElementById('connectBtn');
+        connectBtn.onclick = async () => {
+            if (window.solana && window.solana.isPhantom) {
+                const resp = await window.solana.connect();
+                document.getElementById('mentor-display').innerText = "Widzę Twoją energię finansową. Zaczynamy analizę ⚡. Adres: " + resp.publicKey.toString().slice(0,6) + "...";
+                document.body.style.setProperty('--vyrqix-glow', '#ab9ff2');
+            } else {
+                alert("Zainstaluj Phantom Wallet, aby VyrQix mogła Cię rozpoznać.");
+            }
+        };
+
+        function requestBot() {
+            alert("VyrQix: Przyjmuję zlecenie. Tworzę nową nić kodu dla Twojego bota... 🧬🤖");
+        }
+    </script>
+</body>
+</html>
+
+import os
+from groq import Groq # Zainstaluj: pip install groq
+
+client = Groq(api_key="TWÓJ_KLUCZ")
+
+def analyze_market_fast(market_data):
+    chat_completion = client.chat.completions.create(
+        messages=[{"role": "user", "content": f"VyrQix, analizuj: {market_data}"}],
+        model="llama3-8b-8192",
+    )
+    return chat_completion.choices[0].message.content
